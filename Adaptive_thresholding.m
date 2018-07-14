@@ -1,0 +1,21 @@
+max1=maxfun(data2);
+max2=maxfun(data1);
+min1=minfun(data2);
+min2=minfun(data1);
+dataset1=(data2-min1*ones(320,240))/(max1-min1);
+dataset2=(data1-min2*ones(320,240))/(max2-min2);
+% im1=imread('1.jpg');
+% im2=imread('2.jpg');
+im1=imcomplement(dataset1);
+im2=imcomplement(dataset2);
+bwim1=adaptivethreshold(im1,11,0.03,0);
+bwim2=adaptivethreshold(im2,15,0.02,0);
+subplot(2,2,1);
+imshow(im1);
+subplot(2,2,2);
+imshow(bwim1);
+subplot(2,2,3);
+imshow(im2);
+subplot(2,2,4);
+imshow(bwim2);
+

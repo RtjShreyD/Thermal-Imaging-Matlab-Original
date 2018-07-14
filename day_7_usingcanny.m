@@ -1,0 +1,26 @@
+data=csvread('front.csv',1,1,[1 1 320 240]);
+max=maxfun(data);
+min=minfun(data);
+dataset=(data-min)/(max-min);
+level=graythresh(dataset);
+t2=3*average(dataset)-2*median(dataset);
+t=level*(max-min);
+b=dataset>level;
+figure;
+imshow(b);
+ataset=edge(dataset,'canny',[],0.000000001);
+c=ataset;
+figure;
+imshow(ataset);
+b=b|c;
+figure
+imshow(b);
+b=bwareaopen(b,100);
+figure;
+imshow(b);
+b=bwmorph(b,'bridge',inf);
+figure;
+imshow(b);
+b=imfill(b,'holes');
+figure;
+imshow(b);

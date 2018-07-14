@@ -1,0 +1,28 @@
+data=csvread('front.csv',1,1,[1 1 320 240]);
+dataset=(data-minfun(data))/(maxfun(data)-minfun(data));
+level=graythresh(dataset);
+t2=3*average(dataset)-2*median(dataset);
+t=level*(maxfun(data)-minfun(data));
+A=dataset>t2;
+A=imfill(A,'holes');
+% imshow(A);
+bound=bwboundaries(A);
+B=bound{1,1};
+% n=10;
+% sz=size(B);
+% s=sz(1,1)/n;
+% s=round(s);
+% diff=sz(1,1)-n*s;
+% new=zeros(200,2);
+% new(:,:)=B(301:500,:);
+new=B;
+x=new(:,2);
+y=new(:,1);
+
+windowWidth = 45;
+polynomialOrder = 2;
+smoothX = sgolayfilt(x, polynomialOrder, windowWidth);
+smoothY = sgolayfilt(y, polynomialOrder, windowWidth);
+imshow(A, []);
+hold on;
+plot(smoothX, smoothY, 'r-', 'LineWidth', 2);

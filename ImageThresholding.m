@@ -1,0 +1,15 @@
+I=imread('2.jpg');
+BW2=im2bw(I);
+subplot(2,2,1);
+imshow(BW2);
+title('Original');
+subplot(2,2,2);
+imshow(BW1);
+title('thresholded');
+BW3=BW2-BW1;
+subplot(2,2,3);
+imshow(BW3);
+title('substracted');
+BW4=~BW3-BW2;
+subplot(2,2,4);
+imshow(BW4);

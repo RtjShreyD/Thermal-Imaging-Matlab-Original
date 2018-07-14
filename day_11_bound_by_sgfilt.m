@@ -1,0 +1,34 @@
+data=csvread('front.csv',1,1,[1 1 320 240]);
+max=maxfun(data);
+min=minfun(data);
+dataset=(data-min)/(max-min);
+level=graythresh(dataset);
+t2=3*average(dataset)-2*median(dataset);
+t=level*(max-min);
+d=dataset>t2;
+b=d;
+figure;
+imshow(b);
+ataset=edge(dataset,'canny',[],0.000000001);
+c=ataset;
+
+c=imfill(c,'holes');
+b=b|c;
+b=bwareaopen(b,100);
+b=bwmorph(b,'bridge',inf);
+b=imfill(b,'holes');
+figure;
+imshow(b);
+bound=bwboundaries(b);
+B=bound{1,1};
+new=B;
+x=new(:,2);
+y=new(:,1);
+
+windowWidth = 55;
+polynomialOrder = 2;
+smoothX = sgolayfilt(x, polynomialOrder, windowWidth);
+smoothY = sgolayfilt(y, polynomialOrder, windowWidth);
+imshow(d, []);
+hold on;
+plot(smoothX, smoothY, 'r-','linewidth',2);
