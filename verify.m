@@ -1,0 +1,12 @@
+filename1='v7f1.csv';
+A1=initiate2(filename1);
+filename2='v7s1.csv';
+A2=initiate2(filename2);
+A2=flip(A2,2);
+[a1,a2]=alignfun(A1,A2); 
+[X1,Y1,x1,y1]=mysmooth(a1);
+[X2,Y2,x2,y2]=mysmooth(a2);
+(maxfun(Y2)-minfun(Y2))-(maxfun(Y1)-minfun(Y1))
+imshow(a1);
+figure
+imshow(a2);
